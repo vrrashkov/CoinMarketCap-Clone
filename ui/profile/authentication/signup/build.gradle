@@ -1,0 +1,16 @@
+apply {
+    from("$rootDir/android-library-build.gradle")
+}
+
+
+dependencies {
+    implementation(project(":core"))
+    implementation(project(":ui:common"))
+    implementation(project(":datasource:domain"))
+    implementation(_coil)
+    implementation(_composePaging)
+    implementation(_accompanistAnimations)
+    implementation(_accompanistSystemUIController)
+    implementation(_composeHiltNavigation)
+    implementation(_lifecycleVmCompose)
+}

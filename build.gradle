@@ -1,0 +1,177 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    ext._hiltVersion = "2.42"
+    ext._kotlinVersion = "1.6.10"
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:${_hiltVersion}"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+
+
+    ext._applicationId = "com.vrashkov.coinmarketcapclone"
+    ext._compileSdk= 32
+    ext._minSdk = 26
+    ext._targetSdk = 31
+    ext._versionCode = 1
+    ext._versionName = "1.0"
+
+
+
+    ext._kotlinSerializationPlugin = "org.jetbrains.kotlin.plugin.serialization"
+
+    ext._hiltAndroid = "com.google.dagger:hilt-android:${_hiltVersion}"
+    ext._hiltCompiler = "com.google.dagger:hilt-compiler:${_hiltVersion}"
+    ext._hiltAndroidTest = "com.google.dagger:hilt-android-testing:${_hiltVersion}"
+
+    ext._hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${_hiltVersion}"
+
+    ext._coilVersion = "2.1.0"
+    ext._coil = "io.coil-kt:coil-compose:${_coilVersion}"
+
+    ext._accompanistVersion = "0.24.10-beta"
+    ext._accompanistAnimations  = "com.google.accompanist:accompanist-navigation-animation:${_accompanistVersion}"
+    ext._accompanistInsets  = "com.google.accompanist:accompanist-insets:${_accompanistVersion}"
+
+    // the previous version 0.20.2 doesn't wrap height in viewpagter
+    ext._pager  = "com.google.accompanist:accompanist-pager:${_accompanistVersion}"
+    ext._pagerIndicators  = "com.google.accompanist:accompanist-pager-indicators:${_accompanistVersion}"
+
+    ext._ktxVersion = "1.7.0"
+    ext._coreCtx = "androidx.core:core-ktx:${_ktxVersion}"
+
+    ext._appCompatVersion = "1.3.1"
+    ext._appCompat = "androidx.appcompat:appcompat:${_appCompatVersion}"
+
+    ext._materialVersion = "1.4.0"
+    ext._material = "com.google.android.material:material:${_materialVersion}"
+
+    ext._composeVersion = "1.2.0-beta03"
+
+    ext._composeActivityVersion = "1.3.0-rc01"
+    ext._composeActivity = "androidx.activity:activity-compose:${_composeActivityVersion}"
+
+    ext._composeUi = "androidx.compose.ui:ui:${_composeVersion}"
+    ext._composeMaterial = "androidx.compose.material:material:${_composeVersion}"
+    ext._composeMaterialIconsExtended = "androidx.compose.material:material-icons-extended:1.1.1"
+    ext._composeTooling = "androidx.compose.ui:ui-tooling:1.1.1"
+    ext._composeToolingPreview = "androidx.compose.ui:ui-tooling-preview:1.1.1"
+    ext._composeCustomView = "androidx.customview:customview:1.2.0-alpha01"
+    ext._composeCustomViewPooling = "androidx.customview:customview-poolingcontainer:1.0.0-alpha01"
+
+    ext._composeNavigationVersion = "2.5.0-rc01"
+    ext._composeNavigation = "androidx.navigation:navigation-compose:${_composeNavigationVersion}"
+
+    ext._composeHiltNavigationVersion = "1.0.0"
+    ext._composeHiltNavigation = "androidx.hilt:hilt-navigation-compose:${_composeHiltNavigationVersion}"
+    ext._composeConstraintLayout = "androidx.constraintlayout:constraintlayout-compose:1.0.0-beta02"
+    ext._composeFoundationLayout = "androidx.compose.foundation:foundation-layout:1.1.0-beta02"
+    ext._composeFoundation = "androidx.compose.foundation:foundation:1.1.0-beta02"
+
+    ext._pagingVersion = "3.1.1"
+    ext._composePagingVersion = "1.0.0-alpha15"
+
+    ext._composePagingRuntime = "androidx.paging:paging-runtime:${_pagingVersion}"
+    ext._composePagingCommon = "androidx.paging:paging-common:${_pagingVersion}"
+
+    ext._composePaging = "androidx.paging:paging-compose:${_composePagingVersion}"
+
+    ext._mpChart = "com.github.PhilJay:MPAndroidChart:v3.1.0"
+
+    ext._googleMaterialVersion = "1.4.0"
+    ext._googleMaterial = "com.google.android.material:material:${_googleMaterialVersion}"
+
+    ext._kotlinSerializationVersion = "1.2.2"
+    ext._kotlinSerialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:${_kotlinSerializationVersion}"
+
+
+    ext._ktorVersion = "1.5.2"
+    ext._ktorCore = "io.ktor:ktor-client-core:${_ktorVersion}"
+
+    ext._clientSerialization = "io.ktor:ktor-client-serialization:${_ktorVersion}"
+
+
+    ext._junitVersion = "4.13.2"
+    ext._junit = "junit:junit:${_junitVersion}"
+
+    ext._lifecycleVmKtxVersion = "2.4.1"
+    ext._lifecycleVmKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${_lifecycleVmKtxVersion}"
+    ext._lifecycleVmCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:${_lifecycleVmKtxVersion}"
+
+    ext._roomVersion = "2.3.0"
+    ext._roomRuntime = "androidx.room:room-runtime:${_roomVersion}"
+    ext._roomCompiler = "androidx.room:room-compiler:${_roomVersion}"
+    ext._roomKtx = "androidx.room:room-ktx:${_roomVersion}"
+
+    ext._apolloVersion = "3.3.0"
+    ext._apolloRuntime = "com.apollographql.apollo3:apollo-runtime:${_apolloVersion}"
+
+    ext._retrofitVersion = "2.9.0"
+    ext._httploggingVersion = "4.9.3"//"3.12.0"
+    ext._moshiVersion = "1.12.0"
+
+    ext._retrofit = "com.squareup.retrofit2:retrofit:${_retrofitVersion}"
+    ext._retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${_retrofitVersion}"
+    ext._okHttpLoginInterceptor = "com.squareup.okhttp3:logging-interceptor:${_httploggingVersion}"
+    ext._mockWebServer = "com.squareup.okhttp3:mockwebserver:${_httploggingVersion}"
+    ext._moshi = "com.squareup.moshi:moshi:${_moshiVersion}"
+    ext._moshiKotlin = "com.squareup.moshi:moshi-kotlin:${_moshiVersion}"
+    ext._timberVersion = '5.0.1'
+    ext._timber = "com.jakewharton.timber:timber:${_timberVersion}"
+
+    ext._dataStoreVersion = "1.0.0"
+    ext._dataStorePreferences = "androidx.datastore:datastore-preferences:${_dataStoreVersion}"
+    ext._dataStorePreferencesCore = "androidx.datastore:datastore-preferences-core:${_dataStoreVersion}"
+
+    ext._accompanistSystemUIController = "com.google.accompanist:accompanist-systemuicontroller:0.21.3-beta"
+
+    ext._androidXVersion = "1.4.0"
+    ext._androidXRunner = "androidx.test:runner:${_androidXVersion}"
+    ext._androidXRules = "androidx.test:rules:${_androidXVersion}"
+    ext._androidXCore = "androidx.test:core:${_androidXVersion}"
+
+    ext._uiTestUnit4 = "androidx.compose.ui:ui-test-junit4:${_composeVersion}"
+    ext._uiTestUnitManifest = "androidx.compose.ui:ui-test-manifest:${_composeVersion}"
+
+    ext._mockkVersion = "1.12.0"
+    // for android ui tests
+    ext._mockkAndroid = "io.mockk:mockk-android:${_mockkVersion}"
+    // for unit tests
+    ext._mockk = "io.mockk:mockk:${_mockkVersion}"
+
+    ext._googleTruthVersion = "1.1.3"
+    ext._googleTruth = "com.google.truth:truth:${_googleTruthVersion}"
+
+    ext._coreTesting = "androidx.arch.core:core-testing:2.1.0"
+    ext._coroutinesTesting = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
+
+    ext._turbine = "app.cash.turbine:turbine:0.7.0"
+
+    ext._mockitoCoreVersion = "4.4.0"
+    ext._mockitoCore = "org.mockito:mockito-core:${_mockitoCoreVersion}"
+    ext._mockitoCoreAndroid = "org.mockito:mockito-android:${_mockitoCoreVersion}"
+
+    ext._mockitoKotlinVersion = "3.2.0"
+
+    ext._mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:${_mockitoKotlinVersion}"
+    ext._mockitoInline = "org.mockito:mockito-inline:${_mockitoCoreVersion}"
+}
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,11 @@
+apply {
+    from("$rootDir/library-build.gradle")
+}
+
+
+dependencies {
+    implementation(_retrofit)
+    implementation(_retrofitMoshiConverter)
+    implementation(_clientSerialization)
+    implementation(_moshi)
+}

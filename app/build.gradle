@@ -1,0 +1,116 @@
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+    id "org.jetbrains.kotlin.plugin.serialization" version "1.5.31"
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.vrashkov.coinmarketcapclone"
+        minSdk 28
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion _composeVersion
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    kapt {
+        correctErrorTypes true
+    }
+}
+
+dependencies {
+    implementation(project(":core"))
+    implementation(project(":ui:dashboard"))
+    implementation(project(":ui:profile:authentication:signin"))
+    implementation(project(":ui:profile:authentication:signup"))
+    implementation(project(":ui:profile:settings"))
+    implementation(project(":datasource:network"))
+    implementation(project(":datasource:database"))
+    implementation(project(":datasource:domain"))
+
+    implementation(_accompanistSystemUIController)
+    implementation(_accompanistAnimations)
+    implementation(_accompanistInsets)
+
+    implementation(_coreCtx)
+    implementation(_appCompat)
+
+    implementation(_timber)
+
+    implementation(_composeActivity)
+    implementation(_composeUi)
+    implementation(_composeMaterial)
+    debugImplementation (_composeTooling)
+    implementation(_composeToolingPreview)
+    implementation(_composeNavigation)
+    implementation(_composeHiltNavigation)
+
+    implementation(_googleMaterial)
+
+    implementation(_roomRuntime)
+    implementation(_roomKtx)
+
+    implementation(_coil)
+
+
+    ///////////// hilt
+    implementation(_hiltAndroid)
+    kapt(_hiltCompiler)
+
+    androidTestImplementation(_hiltAndroidTest)
+    kaptAndroidTest(_hiltCompiler)
+
+    testImplementation(_hiltAndroidTest)
+    kaptTest(_hiltAndroidCompiler)
+    kaptAndroidTest(_hiltAndroidCompiler)
+
+    androidTestAnnotationProcessor(_hiltAndroidTest)
+    implementation(_hiltAndroidTest)
+
+    androidTestAnnotationProcessor(_hiltAndroidCompiler)
+    ///////////////
+    implementation(_kotlinSerialization)
+    implementation(_ktorCore)
+
+    // Apollo GraphQL
+    implementation _apolloRuntime
+
+    implementation(_retrofit)
+    implementation(_retrofitMoshiConverter)
+    implementation(_okHttpLoginInterceptor)
+    implementation(_moshi)
+    implementation(_moshiKotlin)
+}

@@ -1,0 +1,13 @@
+
+apply {
+    from("$rootDir/android-library-build.gradle")
+}
+
+
+dependencies {
+    implementation(_roomRuntime)
+    implementation(_roomKtx)
+    implementation(_accompanistInsets)
+    kapt(_roomCompiler)
+
+}

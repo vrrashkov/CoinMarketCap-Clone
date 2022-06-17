@@ -1,0 +1,9 @@
+apply {
+    from("$rootDir/android-library-build.gradle")
+}
+
+dependencies {
+    implementation(_timber)
+    implementation(_accompanistAnimations)
+    implementation(_accompanistSystemUIController)
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="1.8">
+      <module name="CoinMarketCapClone.app" target="11" />
+      <module name="CoinMarketCapClone.core" target="11" />
+      <module name="CoinMarketCapClone.datasource.database" target="11" />
+      <module name="CoinMarketCapClone.datasource.domain" target="11" />
+      <module name="CoinMarketCapClone.datasource.graphql" target="11" />
+      <module name="CoinMarketCapClone.ui.common" target="11" />
+      <module name="CoinMarketCapClone.ui.crypto" target="11" />
+      <module name="CoinMarketCapClone.ui.dashboard" target="11" />
+      <module name="CoinMarketCapClone.ui.profile.authentication.signin" target="11" />
+      <module name="CoinMarketCapClone.ui.profile.authentication.signup" target="11" />
+      <module name="CoinMarketCapClone.ui.profile.settings" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,25 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+    }
+}
+rootProject.name = "CoinMarketCapClone"
+include ':app'
+include ':core'
+include ':datasource'
+include ':datasource:domain'
+include ':datasource:network'
+include ':datasource:database'
+include ':datasource:graphql'
+include ':ui'
+include ':ui:profile'
+include ':ui:profile:settings'
+include ':ui:profile:authentication'
+include ':ui:profile:authentication:signin'
+include ':ui:profile:authentication:signup'
+include ':ui:dashboard'
+include ':ui:crypto'
+include ':ui:common'
