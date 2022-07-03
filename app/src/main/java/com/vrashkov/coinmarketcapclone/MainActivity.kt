@@ -12,6 +12,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Constraints
 import androidx.core.view.WindowCompat
@@ -19,6 +21,7 @@ import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.vrashkov.coinmarketcapclone.core.base.NavigationEvent
 import com.vrashkov.coinmarketcapclone.core.navigation.*
 import com.vrashkov.coinmarketcapclone.core.theme.CoinMarketCapCloneTheme
 import com.vrashkov.coinmarketcapclone.navigation.authNavGraph
@@ -26,6 +29,9 @@ import com.vrashkov.coinmarketcapclone.navigation.dashboardNavGraph
 import com.vrashkov.coinmarketcapclone.navigation.settingsNavGraph
 import com.vrashkov.coinmarketcapclone.ui.dashboard.main.DashboardMainScreen
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -54,12 +60,15 @@ fun AppWrapper(constraints: Constraints) {
         settingsNavigation = rememberMultiNavigationAppState(startDestination = Route.SettingsMain.link)
     )
 
+
     AnimatedNavHost(
         navController = LocalNavigationState.baseNavigation.navController,
         startDestination = DASHBOARD_ROUTE,
         route = BASE_ROUTE
     ) {
-        composable(DASHBOARD_ROUTE) {
+        composable(
+            DASHBOARD_ROUTE
+        ) {
             LocalNavigationState.dashboardNavigation.navController = rememberAnimatedNavController()
 
             DashboardMainScreen(
@@ -78,7 +87,9 @@ fun AppWrapper(constraints: Constraints) {
                 }
             )
         }
-        composable(AUTH_ROUTE) {
+        composable(
+            AUTH_ROUTE
+        ) {
             LocalNavigationState.authNavigation.navController = rememberAnimatedNavController()
 
             AnimatedNavHost(
@@ -93,7 +104,9 @@ fun AppWrapper(constraints: Constraints) {
                 )
             }
         }
-        composable(SETTINGS_ROUTE) {
+        composable(
+            SETTINGS_ROUTE
+        ) {
             LocalNavigationState.settingsNavigation.navController = rememberAnimatedNavController()
 
             AnimatedNavHost(
@@ -109,4 +122,5 @@ fun AppWrapper(constraints: Constraints) {
             }
         }
     }
+
 }

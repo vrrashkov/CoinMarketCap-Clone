@@ -30,6 +30,9 @@ constructor(
             SignInEmailEvent.BackButtonClick -> viewModelScope.launch {
                 _navigationEventFlow.emit(NavigationEvent.NavigateBack)
             }
+            SignInEmailEvent.CreateAccountClick -> viewModelScope.launch {
+                _navigationEventFlow.emit(SignInEmailNavigationEvent.NavigateToRegister)
+            }
         }
     }
 }

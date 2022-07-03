@@ -8,10 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigation
 import com.google.accompanist.navigation.animation.composable
-import com.vrashkov.coinmarketcapclone.core.navigation.MultiNavigationAppState
-import com.vrashkov.coinmarketcapclone.core.navigation.Route
-import com.vrashkov.coinmarketcapclone.core.navigation.enterScreen
-import com.vrashkov.coinmarketcapclone.core.navigation.exitScreen
+import com.vrashkov.coinmarketcapclone.core.navigation.*
 import com.vrashkov.coinmarketcapclone.ui.dashboard.main.DashboardMainScreen
 import com.vrashkov.coinmarketcapclone.ui.dashboard.market.MarketScreen
 import com.vrashkov.coinmarketcapclone.ui.profile.authentication.signin.email.SignInEmailScreen
@@ -37,7 +34,10 @@ fun NavGraphBuilder.authNavGraph(
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 fun NavGraphBuilder.signInEmail(constraints: Constraints) {
     composable( route = Route.AuthSignInEmail.link,
-        exitTransition = exitScreen(constraints), popEnterTransition = enterScreen(constraints),
+        exitTransition = exitScreen(constraints),
+        enterTransition = enterScreen(constraints),
+        popExitTransition = exitScreenPop(constraints),
+        popEnterTransition = enterScreenPop(constraints),
     ) {
         SignInEmailScreen()
     }
@@ -46,7 +46,10 @@ fun NavGraphBuilder.signInEmail(constraints: Constraints) {
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 fun NavGraphBuilder.signUpEmail(constraints: Constraints) {
     composable( route = Route.AuthSignUpEmail.link,
-        exitTransition = exitScreen(constraints), popEnterTransition = enterScreen(constraints),
+        exitTransition = exitScreen(constraints),
+        enterTransition = enterScreen(constraints),
+        popExitTransition = exitScreenPop(constraints),
+        popEnterTransition = enterScreenPop(constraints),
     ) {
         SignUpEmailScreen()
     }

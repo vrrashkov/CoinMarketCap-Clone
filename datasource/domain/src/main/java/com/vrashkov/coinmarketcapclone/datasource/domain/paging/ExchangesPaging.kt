@@ -13,7 +13,7 @@ class ExchangesPaging constructor(
 ) : PagingSource<Int, SingleExchange>() {
     override fun getRefreshKey(state: PagingState<Int, SingleExchange>): Int?
     {
-        return state.anchorPosition
+        return null
     }
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SingleExchange> {
         val nextPage = params.key ?: 1

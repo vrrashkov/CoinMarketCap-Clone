@@ -14,7 +14,7 @@ class CoinsPaging constructor(
 ) : PagingSource<Int, SingleCoin>() {
     override fun getRefreshKey(state: PagingState<Int, SingleCoin>): Int?
     {
-        return state.anchorPosition
+        return null
     }
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SingleCoin> {
         val nextPage = params.key ?: 1

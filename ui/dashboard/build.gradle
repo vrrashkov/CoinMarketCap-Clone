@@ -12,6 +12,7 @@ dependencies {
     implementation(_composePaging)
     implementation(_accompanistAnimations)
     implementation(_accompanistSystemUIController)
+    implementation(_accompanistSwipeRefresh)
     implementation(_composeHiltNavigation)
     implementation(_lifecycleVmCompose)
 }

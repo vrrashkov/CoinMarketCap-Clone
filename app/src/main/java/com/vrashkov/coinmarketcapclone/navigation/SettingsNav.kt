@@ -8,10 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigation
 import com.google.accompanist.navigation.animation.composable
-import com.vrashkov.coinmarketcapclone.core.navigation.MultiNavigationAppState
-import com.vrashkov.coinmarketcapclone.core.navigation.Route
-import com.vrashkov.coinmarketcapclone.core.navigation.enterScreen
-import com.vrashkov.coinmarketcapclone.core.navigation.exitScreen
+import com.vrashkov.coinmarketcapclone.core.navigation.*
 import com.vrashkov.coinmarketcapclone.ui.dashboard.main.DashboardMainScreen
 import com.vrashkov.coinmarketcapclone.ui.dashboard.market.MarketScreen
 import com.vrashkov.coinmarketcapclone.ui.profile.authentication.signin.email.SignInEmailScreen
@@ -37,7 +34,8 @@ fun NavGraphBuilder.settingsNavGraph(
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 fun NavGraphBuilder.SettingsMain(constraints: Constraints) {
     composable( route = Route.SettingsMain.link,
-        exitTransition = exitScreen(constraints), popEnterTransition = enterScreen(constraints),
+        exitTransition = exitScreen(constraints),
+        enterTransition = enterScreen(constraints)
     ) {
         SettingsMainScreen()
     }

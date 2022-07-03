@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -49,6 +50,8 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.vrashkov.coinmarketcapclone.core.enums.ActionButtonOrderEnum
 import com.vrashkov.coinmarketcapclone.core.enums.MarketFilterEnum
 import com.vrashkov.coinmarketcapclone.core.enums.MarketFilterSortByEnum
@@ -63,6 +66,7 @@ import com.vrashkov.coinmarketcapclone.core.theme.MarketColors
 import com.vrashkov.coinmarketcapclone.core.theme.MarketShapes
 import com.vrashkov.coinmarketcapclone.core.util.convertToNumberWithSuffix
 import com.vrashkov.coinmarketcapclone.core.util.getSharedViewModelParentEntry
+import com.vrashkov.coinmarketcapclone.core.util.log
 import com.vrashkov.coinmarketcapclone.core.util.round
 import com.vrashkov.coinmarketcapclone.datasource.domain.model.SingleCoin
 import com.vrashkov.coinmarketcapclone.datasource.domain.model.SingleExchange
@@ -179,9 +183,13 @@ private fun MarketScreenComponent(
         val downArrowImage = rememberVectorPainter(image = Icons.Rounded.ArrowDropDown)
         val favouritesImage = rememberVectorPainter(image = Icons.Rounded.StarBorder)
         val favouritesImageFilled = rememberVectorPainter(image = Icons.Rounded.Star)
-
+        val coroutineScope = rememberCoroutineScope()
         val lazyCoinsItems: LazyPagingItems<SingleCoin> = viewModelMarket.lazyCoinsItems.collectAsLazyPagingItems()
         val lazyExchangeItems: LazyPagingItems<SingleExchange> = viewModelMarket.lazyExchangesItems.collectAsLazyPagingItems()
+
+        val lazyCoinsIsRefreshing = lazyCoinsItems.loadState.refresh is LoadState.Loading
+        val lazyExchangeIsRefreshing = lazyExchangeItems.loadState.refresh is LoadState.Loading
+
 
         MarketViewPager(
             pageTitles = viewPagerTabsList,
@@ -193,30 +201,41 @@ private fun MarketScreenComponent(
                 when (viewPagerTabsList[page]) {
                     MarketPagerEnum.Cryptocurrencies -> {
                         Box(Modifier.fillMaxSize()) {
-                            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                                items(items = lazyCoinsItems) { coin ->
-                                    coin?.let{
-                                        MarketListItem(
-                                            item = MarketListItem(
-                                                unique_id = it.id,
-                                                name = it.name,
-                                                imageUrl = it.imageUrl,
-                                                rank = it.marketCapRank,
-                                                shortCode = it.symbol,
-                                                currentPrice = it.currentPrice,
-                                                sparklingGraph = it.price,
-                                                totalMarketCap = it.marketCap,
-                                                priceChangePercentage = it.priceChangePercentage
-                                            ),
-                                            imagePlaceholder = coinImagePlaceholder,
-                                            upArrowImage = upArrowImage,
-                                            downArrowImage = downArrowImage,
-                                            favouritesImage = favouritesImage,
-                                            onFavouriteClick = {
+                            SwipeRefresh(
+                                state = rememberSwipeRefreshState(lazyCoinsIsRefreshing),
+                                onRefresh = {
+                                    lazyCoinsItems.refresh()
+                                },
+                            ) {
+                                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                                        if (!lazyCoinsIsRefreshing) {
+                                        items(items = lazyCoinsItems) { coin ->
 
+                                            coin?.let {
+                                                MarketListItem(
+                                                    item = MarketListItem(
+                                                        marketType = MarketPagerEnum.Cryptocurrencies,
+                                                        unique_id = it.id,
+                                                        name = it.name,
+                                                        imageUrl = it.imageUrl,
+                                                        rank = it.marketCapRank,
+                                                        shortCode = it.symbol,
+                                                        currentPrice = it.currentPrice,
+                                                        sparklingGraph = it.price,
+                                                        totalMarketCap = it.marketCap,
+                                                        priceChangePercentage = it.priceChangePercentage
+                                                    ),
+                                                    imagePlaceholder = coinImagePlaceholder,
+                                                    upArrowImage = upArrowImage,
+                                                    downArrowImage = downArrowImage,
+                                                    favouritesImage = favouritesImage,
+                                                    onFavouriteClick = {
+
+                                                    }
+                                                )
+                                                Divider(color = CoinMarketCapCloneTheme.colors.content)
                                             }
-                                        )
-                                        Divider(color = CoinMarketCapCloneTheme.colors.content)
+                                        }
                                     }
                                 }
                             }
@@ -224,30 +243,39 @@ private fun MarketScreenComponent(
                     }
                     MarketPagerEnum.Exchanges -> {
                         Box(Modifier.fillMaxSize()) {
-                            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                                items(items = lazyExchangeItems) { exchange ->
-                                    exchange?.let{
-                                        MarketListItem(
-                                            item = MarketListItem(
-                                                unique_id = it.id,
-                                                name = it.name,
-                                                imageUrl = it.image,
-                                                rank = it.trustScoreRank,
-                                                shortCode = null,
-                                                currentPrice = null,
-                                                sparklingGraph = listOf(),
-                                                totalMarketCap = it.tradeVolume24Btc.toDouble().toLong().toString(),
-                                                priceChangePercentage = null
-                                            ),
-                                            imagePlaceholder = coinImagePlaceholder,
-                                            upArrowImage = upArrowImage,
-                                            downArrowImage = downArrowImage,
-                                            favouritesImage = favouritesImage,
-                                            onFavouriteClick = {
+                            SwipeRefresh(
+                                state = rememberSwipeRefreshState(lazyExchangeIsRefreshing),
+                                onRefresh = { lazyExchangeItems.refresh() },
+                            ) {
+                                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                                    if (!lazyExchangeIsRefreshing) {
+                                        items(items = lazyExchangeItems) { exchange ->
+                                            exchange?.let {
+                                                MarketListItem(
+                                                    item = MarketListItem(
+                                                        marketType = MarketPagerEnum.Exchanges,
+                                                        unique_id = it.id,
+                                                        name = it.name,
+                                                        imageUrl = it.image,
+                                                        rank = it.trustScoreRank,
+                                                        shortCode = null,
+                                                        currentPrice = null,
+                                                        sparklingGraph = listOf(),
+                                                        totalMarketCap = it.tradeVolume24Btc.toDouble()
+                                                            .toLong().toString(),
+                                                        priceChangePercentage = null
+                                                    ),
+                                                    imagePlaceholder = coinImagePlaceholder,
+                                                    upArrowImage = upArrowImage,
+                                                    downArrowImage = downArrowImage,
+                                                    favouritesImage = favouritesImage,
+                                                    onFavouriteClick = {
 
+                                                    }
+                                                )
+                                                Divider(color = CoinMarketCapCloneTheme.colors.content)
                                             }
-                                        )
-                                        Divider(color = CoinMarketCapCloneTheme.colors.content)
+                                        }
                                     }
                                 }
                             }
@@ -281,6 +309,7 @@ fun MarketListItem(
             contentScale = ContentScale.Crop,
             modifier = Modifier.size(34.dp).clip(CircleShape)
         )
+
         Spacer(modifier = Modifier.width(10.dp))
         Row(modifier = Modifier.fillMaxHeight(), horizontalArrangement = Arrangement.SpaceBetween) {
             Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.SpaceBetween) {

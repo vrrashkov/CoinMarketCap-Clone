@@ -2,7 +2,6 @@ package com.vrashkov.coinmarketcapclone.ui.profile.authentication.signin.email
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.R
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,6 +24,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import com.vrashkov.coinmarketcapclone.core.base.NavigationEvent
+import com.vrashkov.coinmarketcapclone.core.navigation.Route
+import com.vrashkov.coinmarketcapclone.core.theme.CoinMarketCapCloneTheme
+import com.vrashkov.coinmarketcapclone.ui.common.pureClickable
 
 
 @ExperimentalMaterialApi
@@ -46,6 +48,9 @@ fun SignInEmailScreen(mainContent: @Composable (ColumnScope.() -> Unit)? = null)
             when (it) {
                 is NavigationEvent.NavigateBack -> {
                     baseAppState.navigateBack()
+                }
+                is SignInEmailNavigationEvent.NavigateToRegister -> {
+                    authNavController.navigate(Route.AuthSignUpEmail.link)
                 }
             }
         }
@@ -113,16 +118,25 @@ private fun SignInEmailScreenLayout(viewStateEmail: SignInEmailState,onTriggerSi
             )
         },
         bottomContent = {
-            Row(
-                verticalAlignment = Alignment.Bottom
-            ) {
-                FilledButton(
-                    text = "Log in",
-                    state = ButtonState.Disabled,
-                    onClick = {
+            Column (Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
 
-                    }
+                Text(
+                    modifier = Modifier.padding(bottom = 8.dp).pureClickable {
+                        onTriggerSignInEmailEvents(SignInEmailEvent.CreateAccountClick)
+                    },
+                    text = "Create Account",
                 )
+                Row(
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    FilledButton(
+                        text = "Log in",
+                        state = ButtonState.Disabled,
+                        onClick = {
+
+                        }
+                    )
+                }
             }
         }
     )

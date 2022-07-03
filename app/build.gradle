@@ -54,6 +54,7 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":ui:dashboard"))
+    implementation(project(":ui:common"))
     implementation(project(":ui:profile:authentication:signin"))
     implementation(project(":ui:profile:authentication:signup"))
     implementation(project(":ui:profile:settings"))

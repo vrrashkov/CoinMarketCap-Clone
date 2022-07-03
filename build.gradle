@@ -38,7 +38,7 @@ buildscript {
     ext._coilVersion = "2.1.0"
     ext._coil = "io.coil-kt:coil-compose:${_coilVersion}"
 
-    ext._accompanistVersion = "0.24.10-beta"
+    ext._accompanistVersion = "0.24.13-rc"
     ext._accompanistAnimations  = "com.google.accompanist:accompanist-navigation-animation:${_accompanistVersion}"
     ext._accompanistInsets  = "com.google.accompanist:accompanist-insets:${_accompanistVersion}"
 
@@ -133,6 +133,7 @@ buildscript {
     ext._dataStorePreferencesCore = "androidx.datastore:datastore-preferences-core:${_dataStoreVersion}"
 
     ext._accompanistSystemUIController = "com.google.accompanist:accompanist-systemuicontroller:0.21.3-beta"
+    ext._accompanistSwipeRefresh = "com.google.accompanist:accompanist-swiperefresh:0.24.13-rc"
 
     ext._androidXVersion = "1.4.0"
     ext._androidXRunner = "androidx.test:runner:${_androidXVersion}"
